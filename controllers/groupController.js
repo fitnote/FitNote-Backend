@@ -88,3 +88,45 @@ GroupDAO.prototype.addTodo = async function(id, todo_id, callback) {
 
   return group;
 };
+
+/**
+ * @param {String} id group对应的id
+ * @param {String} members 新成员id
+ *
+ * @returns {Object} 返回更新后的group信息
+ */
+GroupDAO.prototype.addMember = async function(id, members, callback) {
+  let group = await GroupModel.findByIdAndUpdate(
+    id,
+    { $addToSet: { members: members } },
+    { new: true }
+  );
+
+  for (let i = 0; i < members.length; i++) {
+    await UserDAO.addGroup(members[i], id);
+  }
+
+  return group;
+};
+
+/**
+ * @param {String} id group对应的id
+ * @param {String} members 删除成员的id
+ *
+ * @returns {Object} 返回更新后的group信息
+ */
+GroupDAO.prototype.deleteMember = async function(id, members, callback) {
+  let group = await GroupModel.findByIdAndUpdate(
+    id,
+    { $pullAll: { members: members } },
+    { new: true }
+  );
+
+  for (let i = 0; i < members.length; i++) {
+    await UserDAO.deleteGroup(members[i], id);
+  }
+
+  return group;
+};
+
+module.exports = new GroupDAO();
