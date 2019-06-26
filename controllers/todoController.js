@@ -42,4 +42,27 @@ TodoDAO.prototype.newTodo = async function(todo_info, callback) {
     }
   }
 
+  // 更新 todo 的接受群组的 todo 列表
+  if (receive_group) {
+    await GroupDAO.addTodo(receive_group, todo_id);
+  }
+
+  return todo;
+};
+
+/**
+ * @param {String} id todo对应的id
+ * @param {String} title 新的标题名
+ *
+ * @returns {Object} 返回更新后的todo信息
+ */
+TodoDAO.prototype.updateTodo = async function(id, title, callback) {
+  let todo = await TodoModel.findByIdAndUpdate(
+    id,
+    { title: title },
+    { new: true }
+  ).exec();
+  return todo;
+};
+
 module.exports = new TodoDAO();
