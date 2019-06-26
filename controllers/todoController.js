@@ -75,5 +75,24 @@ TodoDAO.prototype.deleteTodo = async function(id, callback) {
   return todo;
 };
 
+/**
+ * @param {String} id todo对应的id
+ * @param {String} receive_user 新的todo接受者
+ *
+ * @returns {Object} 返回更新后的todo信息
+ */
+TodoDAO.prototype.addUser = async function(id, receive_user, callback) {
+  let todo = await TodoModel.findByIdAndUpdate(
+    id,
+    { $addToSet: { receive_user: receive_user } },
+    { new: true }
+  );
+
+  for (let i = 0; i < receive_user.length; i++) {
+    await UserDAO.addTodo(receive_user[i], id);
+  }
+
+  return todo;
+};
 
 module.exports = new TodoDAO();
