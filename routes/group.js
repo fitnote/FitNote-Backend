@@ -86,3 +86,49 @@ router.post("/:id/user", async (ctx, next) => {
 
   ctx.body = new_group;
 });
+
+
+/**
+ *  响应: DELETE 请求
+ *  API: api.com/group
+ *  作用: 无
+ *  返回: 无该操作
+ */
+router.delete("/", (ctx, next) => {
+  ctx.body = "Do nothing...";
+});
+
+/**
+ *  响应: DELETE 请求
+ *  API: api.com/group/:id
+ *  作用：删除一个群组
+ *  返回: 删除的群组
+ */
+router.delete("/:id", async (ctx, next) => {
+  console.log("API: DELETE GROUP/:id");
+
+  const id = ctx.params.id;
+
+  let delete_group = await GroupDAO.deleteGroup(id);
+
+  ctx.body = delete_group;
+});
+
+/**
+ *  响应: DELETE 请求
+ *  API: api.com/group/:id/user
+ *  作用：删除群组中的人
+ *  返回: 删除的群组信息
+ */
+router.delete("/:id/user", async (ctx, next) => {
+  console.log("API: DELETE GROUP/:id/user");
+
+  const id = ctx.params.id;
+  const members = ctx.request.body.members;
+
+  let delete_group = await GroupDAO.deleteMember(id, members);
+
+  ctx.body = delete_group;
+});
+
+module.exports = router;
