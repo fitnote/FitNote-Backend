@@ -65,4 +65,15 @@ TodoDAO.prototype.updateTodo = async function(id, title, callback) {
   return todo;
 };
 
+/**
+ * @param {String} id todo对应的id
+ *
+ * @returns {Object} 删除的todo
+ */
+TodoDAO.prototype.deleteTodo = async function(id, callback) {
+  let todo = await TodoModel.findByIdAndRemove(id).exec();
+  return todo;
+};
+
+
 module.exports = new TodoDAO();
