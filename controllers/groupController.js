@@ -10,11 +10,21 @@ GroupDAO.prototype.findAll = async function(callback) {
   let groups = await GroupModel.find({}).exec();
   return groups;
 };
-
+/**
+ * @param {String} id group对应的id
+ *
+ * @returns {Object} 返回查找的group
+ */
 GroupDAO.prototype.findGroup = async function(id, callback) {
   let group = await GroupModel.findById(id).exec();
   return group;
 };
+
+/**
+ * @param {String} group_info gourp的信息
+ *
+ * @returns {Object} 返回新建的group信息
+ */
 GroupDAO.prototype.newGroup = async function(group_info, callback) {
   let group = await GroupModel(group_info).save();
 
