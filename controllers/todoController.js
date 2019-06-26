@@ -23,4 +23,24 @@ TodoDAO.prototype.findTodo = async function(id, callback) {
   return todo;
 };
 
+/**
+ * @param {String} todo_info todo的信息(title, receive_group, receive_user, owner)
+ *
+ * @returns {Object} 返回新建的todo信息
+ */
+TodoDAO.prototype.newTodo = async function(todo_info, callback) {
+  let todo = await TodoModel(todo_info).save();
+
+  let todo_id = todo._id;
+  let receive_users = todo.receive_user;
+  let receive_group = todo.receive_group;
+
+  // 更新 todo 的接收人员的 todo 列表
+  if (receive_users) {
+    for (let i = 0; i < receive_users.length; i++) {
+      await UserDAO.addTodo(receive_users[i], todo_id);
+    }
+  }
+
+
 module.exports = new TodoDAO();
