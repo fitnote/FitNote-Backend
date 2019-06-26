@@ -10,3 +10,8 @@ GroupDAO.prototype.findAll = async function(callback) {
   let groups = await GroupModel.find({}).exec();
   return groups;
 };
+
+GroupDAO.prototype.findGroup = async function(id, callback) {
+  let group = await GroupModel.findById(id).exec();
+  return group;
+};
