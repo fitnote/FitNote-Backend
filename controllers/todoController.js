@@ -12,4 +12,15 @@ TodoDAO.prototype.findAll = async function(callback) {
   return todos;
 };
 
+
+/**
+ * @param {String} id todo对应的id
+ *
+ * @returns {Object} 返回查找的id
+ */
+TodoDAO.prototype.findTodo = async function(id, callback) {
+  let todo = await TodoModel.findById(id).exec();
+  return todo;
+};
+
 module.exports = new TodoDAO();
