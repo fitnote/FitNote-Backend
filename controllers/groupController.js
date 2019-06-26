@@ -56,3 +56,35 @@ GroupDAO.prototype.updateGroup = async function(id, group_info, callback) {
     return group;
   }
 };
+/**
+ * @param {String} id group对应的id
+ *
+ * @returns {Object} 删除的group
+ */
+GroupDAO.prototype.deleteGroup = async function(id, callback) {
+  let group = await GroupModel.findByIdAndRemove(id).exec();
+  return group;
+};
+
+/**
+ * @param {String} id group对应的id
+ * @param {String} todo_id 新的todo id
+ *
+ * @returns {Object} 返回更新后的group信息
+ */
+GroupDAO.prototype.addTodo = async function(id, todo_id, callback) {
+  let group = await GroupModel.findByIdAndUpdate(
+    id,
+    { $addToSet: { todos: todo_id } },
+    { new: true }
+  ).exec();
+
+  let group_members = group.members;
+
+  // 添加一个 todo 后，更新 group 每一位成员添加 user 中的 todo 列表
+  for (let i = 0; i < group_members.length; i++) {
+    await UserDAO.addTodo(group_members[i], todo_id);
+  }
+
+  return group;
+};
