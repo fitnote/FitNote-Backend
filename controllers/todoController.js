@@ -42,5 +42,4 @@ TodoDAO.prototype.newTodo = async function(todo_info, callback) {
     }
   }
 
-
 module.exports = new TodoDAO();
