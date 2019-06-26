@@ -39,3 +39,20 @@ GroupDAO.prototype.newGroup = async function(group_info, callback) {
   }
   return group;
 };
+
+/**
+ * @param {String} id group对应的id
+ * @param {String} group_info 新的name
+ *
+ * @returns {Object} 返回更新后的user信息
+ */
+GroupDAO.prototype.updateGroup = async function(id, group_info, callback) {
+  if (group_info.name) {
+    let group = await GroupModel.findByIdAndUpdate(
+      id,
+      { name: group_info.name },
+      { new: true }
+    ).exec();
+    return group;
+  }
+};
