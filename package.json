@@ -1,0 +1,40 @@
+{
+  "name": "buke-backend",
+  "version": "0.0.1",
+  "description": "回眸一笑百媚生",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node_modules/.bin/nodemon app.js",
+    "format": "npx prettier --write ./**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zophyr/Buke-Backend.git"
+  },
+  "author": "Zophyr",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/Zophyr/Buke-Backend/issues"
+  },
+  "homepage": "https://github.com/Zophyr/Buke-Backend#readme",
+  "dependencies": {
+    "glob": "^7.1.4",
+    "koa": "^2.7.0",
+    "koa-body": "^4.1.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.5.11"
+  },
+  "devDependencies": {
+    "husky": "^2.3.0",
+    "nodemon": "^1.19.1",
+    "prettier": "1.17.1",
+    "pretty-quick": "^1.11.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}
