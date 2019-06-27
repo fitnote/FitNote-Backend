@@ -68,3 +68,31 @@ router.post("/:id", async (ctx, next) => {
 
   ctx.body = new_user;
 });
+
+/**
+ *  响应: DELETE 请求
+ *  API: api.com/user
+ *  作用: 无
+ *  返回: 无该操作
+ */
+router.delete("/", (ctx, next) => {
+  ctx.body = "Do nothing...";
+});
+
+/**
+ *  响应: DELETE 请求
+ *  API: api.com/user/:id
+ *  作用：删除用户
+ *  返回: 删除的用户
+ */
+router.delete("/:id", async (ctx, next) => {
+  console.log("API: DELETE USER/:id");
+
+  const id = ctx.params.id;
+
+  let delete_user = await UserDAO.deleteUser(id);
+
+  ctx.body = delete_user;
+});
+
+module.exports = router;
