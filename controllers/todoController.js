@@ -12,7 +12,6 @@ TodoDAO.prototype.findAll = async function(callback) {
   return todos;
 };
 
-
 /**
  * @param {String} id todo对应的id
  *

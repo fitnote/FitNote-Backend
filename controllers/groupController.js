@@ -3,7 +3,6 @@ const UserDAO = require("./userController");
 
 const GroupDAO = function() {};
 
-
 /**
  * @returns {Object} 所有 Groups
  */
@@ -11,6 +10,7 @@ GroupDAO.prototype.findAll = async function(callback) {
   let groups = await GroupModel.find({}).exec();
   return groups;
 };
+
 /**
  * @param {String} id group对应的id
  *
@@ -57,6 +57,7 @@ GroupDAO.prototype.updateGroup = async function(id, group_info, callback) {
     return group;
   }
 };
+
 /**
  * @param {String} id group对应的id
  *
@@ -129,6 +130,5 @@ GroupDAO.prototype.deleteMember = async function(id, members, callback) {
 
   return group;
 };
-
 
 module.exports = new GroupDAO();

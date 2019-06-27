@@ -36,7 +36,6 @@ router.get("/:id", async (ctx, next) => {
   ctx.body = group;
 });
 
-
 /**
  *  响应: POST 请求
  *  API: api.com/group
@@ -86,7 +85,6 @@ router.post("/:id/user", async (ctx, next) => {
 
   ctx.body = new_group;
 });
-
 
 /**
  *  响应: DELETE 请求
