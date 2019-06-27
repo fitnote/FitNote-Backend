@@ -86,3 +86,31 @@ router.post("/:id/user", async (ctx, next) => {
 
   ctx.body = new_todo;
 });
+
+/**
+ *  响应: DELETE 请求
+ *  API: api.com/todo
+ *  作用: 无
+ *  返回: 无该操作
+ */
+router.delete("/", (ctx, next) => {
+  ctx.body = "Do nothing...";
+});
+
+/**
+ *  响应: DELETE 请求
+ *  API: api.com/todo/:id
+ *  作用: 删除该todo
+ *  返回: 删除的todo
+ */
+router.delete("/:id", async (ctx, next) => {
+  console.log("API: DELETE TODO/:id");
+
+  const id = ctx.params.id;
+
+  let delete_todo = await TodoDAO.deleteTodo(id);
+
+  ctx.body = delete_todo;
+});
+
+module.exports = router;
